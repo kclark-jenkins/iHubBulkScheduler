@@ -106,41 +106,54 @@ public class ScheduleReport {
 		
 		SubmitJob sj = new SubmitJob();
 		
+        com.actuate.schemas.PrivilegeFilter pf = new com.actuate.schemas.PrivilegeFilter();
+        pf.setGrantedUserName(ihubuser);
+        
         sj.setPriority(1000);
-        //sj.setHeadline("2611");
+        sj.setHeadline("2611");
         sj.setParameterValues(new ArrayOfParameterValue(values));
         sj.setKeepOutputFile(true);
         sj.setOverrideRecipientPref(true);
-        sj.setSendEmailForSuccess(email);
-        sj.setAttachReportInEmail(attachment);
-        sj.setSendSuccessNotice(false);
+        sj.setSendEmailForSuccess(true);
+        sj.setAttachReportInEmail(true);
         sj.setSendFailureNotice(false);
+        sj.setSendSuccessNotice(true);
+       
         
-        sj.setNotifyUsersByName(users);
         
-        sj.setInputFileName(rptdesign);
-        
+        NewFile nf = new NewFile();
         if(outputfolder.substring(outputfolder.length() - 1) != "/") {
-			outputName = outputfolder + new java.io.File(rptdesign.replace(".rptdesign", "-" + burstvalue + "." + outputtype.toString().toLowerCase())).getName();
-			NewFile nf = new NewFile();
+			outputName = outputfolder + new java.io.File(rptdesign.replace(".rptdesign", "-" + burstvalue + "." + outputtype.toString())).getName();
+			
 			JobScheduler js = new JobScheduler(auth);
-			js.addPermission(ihubuser, null, "VR");
+			js.addPermission(ihubuser, null, "VSRE");
 			nf.setACL(js.getPermissions());
 			nf.setName(outputName);
 			sj.setRequestedOutputFile(nf);
+			sj.setEmailFormat(outputtype.toString());
 		}else{
-			outputName = outputfolder + "/" + new java.io.File(rptdesign.replace(".rptdesign", "-" + burstvalue + "." + outputtype.toString().toLowerCase())).getName();
-			NewFile nf = new NewFile();
+			outputName = outputfolder + "/" + new java.io.File(rptdesign.replace(".rptdesign", "-" + burstvalue + "." + outputtype.toString())).getName();
+
 			JobScheduler js = new JobScheduler(auth);
-			js.addPermission(ihubuser, null, "VR");
+			js.addPermission(ihubuser, null, "VSRE");
 			nf.setACL(js.getPermissions());
 			nf.setName(outputName);
 			sj.setRequestedOutputFile(nf);
+			sj.setEmailFormat(outputtype.toString());
 		}
         
         sj.setOperation(SubmitJobOperation.RunReport);
-
-        SubmitJobResponse submitJobResponse = null;
+        pf.setAccessRights("visible");
+        
+        String[] notifyUsersByName = {ihubuser};
+        com.actuate.schemas.ArrayOfString notifyUsers = new com.actuate.schemas.ArrayOfString();
+        notifyUsers.setString(notifyUsersByName);
+        sj.setNotifyUsersByName(notifyUsers);
+        sj.setInputFileName(rptdesign);
+        
+        
+        SubmitJobResponse submitJobResponse = new SubmitJobResponse();
+        sj.setSchedules(null);
         submitJobResponse = auth.getAcxControl().proxy.submitJob(sj); //actuateControl.proxy.sj(sj);
         System.out.println(submitJobResponse.getJobId());
 	}
