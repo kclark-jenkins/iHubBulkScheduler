@@ -1,7 +1,5 @@
 package com.krisbox.ihub.rest.controllers;
 
-import java.util.Arrays;
-
 import org.apache.log4j.Logger;
 import org.krisbox.ihub.schedule.ScheduleReport;
 
@@ -17,23 +15,7 @@ public class OTContoller {
 	}
 	
 	public CustomSchedulerResponse executeNow() {
-		logger.info("=============================All Values=============================");
-		logger.info("iHub URL		  == " + csp.getURL());
-		logger.info("AuthID           == " + csp.getAuthId());
-		logger.info("Burst Column     == " + csp.getBurstColumn());
-		logger.info("Burst Values     == " + Arrays.toString(csp.getBurstvalues()));
-		logger.info("iHub Users       == " + Arrays.toString(csp.getIhubuser()));
-		logger.info("iHub Groups      == " + Arrays.toString(csp.getIhubgroup()));
-		logger.info("Report Design    == " + csp.getRptdesign());
-		logger.info("Parameter Names  == " + Arrays.toString(csp.getParameterNames()));
-		logger.info("Parameter Values == " + Arrays.toString(csp.getParameterValues()));
-		logger.info("Output Type      == " + csp.getOutputtype());
-		logger.info("E-Mail           == " + Arrays.toString(csp.getEmail()));
-		logger.info("Attachment       == " + Arrays.toString(csp.getAttachment()));
-		logger.info("=============================End Values=============================");
-		
 		CustomSchedulerResponse csr = new CustomSchedulerResponse(id, csp.getBurstvalues().length);
-		System.out.println("************" + csp.getBurstvalues()[2]);
 		
 		boolean tempEmail = false;
 		boolean tempAttachment = false;
@@ -68,6 +50,7 @@ public class OTContoller {
 						  csp.getParameterNames(),
 						  csp.getParameterValues(),
 						  csp.getOutputtype(),
+						  csp.getOutputfolder(),
 						  tempEmail,
 						  tempAttachment);
 				
