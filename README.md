@@ -19,6 +19,7 @@ of the following parameters, they are all still required to be defined.
 			  String[] parameterNames,    // An array of any parameters defined in the report, these are parameter names only, required
 			  String[] parameterValues,   // An array for the values matching the previous array definition. required
 			  OutputType outputtype,      // The final report format, e.g. PDF, required
+			  Strung outputfolder,        // The folder where the rendered reports are stored
 			  boolean email,              // boolean value that determines if the user should be emails upon execution, required
 			  boolean attachment          // boolean value that determines if the user should get the report as an attachment, required
 			  
@@ -35,5 +36,4 @@ For example
 			  Signal Gift Stores     | connorjay      | test=testvalue  | example-Signal Gift Stores.pdf
 			  
 Notice the parameters are reused for each execution.  This is because the burst value is being sent as a parameter to the report and 
-is used as a parameter is the MySQL query.  When the email and attachment features are complete, they will correspond with the iHub
-user on each row as above.
+is used as a parameter is the MySQL query.  They correspond with the iHub user on each row as above.
