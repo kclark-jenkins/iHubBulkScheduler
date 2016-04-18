@@ -1,7 +1,5 @@
 package com.krisbox.ihub.rest.controllers;
 
-import org.krisbox.ihub.utils.Connection;
-
 public class CustomSchedulerPojo {
 	private final long         id;
 	private final String       authId;
@@ -19,6 +17,7 @@ public class CustomSchedulerPojo {
 	private final String[]     parameterNames;
 	private final String[]     parameterValues;
 	private final OutputType   outputtype;
+	private final String       outputfolder;
 	private final boolean[]    email;
 	private final boolean[]    attachment;
 	
@@ -38,6 +37,7 @@ public class CustomSchedulerPojo {
 						   String[]   parameterNames,
 						   String[]   parameterValues,
 						   String     outputtype,
+						   String     outputfolder,
 						   boolean[]  email,
 						   boolean[]  attachment) {
 		this.id              = id;
@@ -57,6 +57,7 @@ public class CustomSchedulerPojo {
 		this.parameterNames  = parameterNames;
 		this.parameterValues = parameterValues;
 		this.outputtype = OutputType.valueOf(outputtype);
+		this.outputfolder    = outputfolder;
 		this.email      = email;
 		this.attachment = attachment;
 	}
@@ -119,6 +120,10 @@ public class CustomSchedulerPojo {
 	
 	public OutputType getOutputtype() {
 		return outputtype;
+	}
+	
+	public String getOutputfolder() {
+		return outputfolder;
 	}
 	
 	public boolean[] getEmail() {

@@ -2,9 +2,7 @@ package com.krisbox.ihub.rest.controllers;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.springframework.web.bind.annotation.PathVariable;  
-import org.springframework.web.bind.annotation.RequestMapping;  
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
   
@@ -28,6 +26,7 @@ public class CustomSchedulerController {
     											   @RequestParam(value="parameterNames") String[] parameterNames,
     											   @RequestParam(value="parameterValues") String[] parameterValues,
     											   @RequestParam(value="outputtype") String outputtype,
+    											   @RequestParam(value="outputfolder") String outputfolder,
     											   @RequestParam(value="email") boolean[] email,
     											   @RequestParam(value="attachment") boolean[] attachment) {
     	
@@ -49,6 +48,7 @@ public class CustomSchedulerController {
     													  parameterNames,
     													  parameterValues,
     													  outputtype,
+    													  outputfolder,
     													  email,
     													  attachment);
     	
